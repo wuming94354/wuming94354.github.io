@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>仇科文 | 自动化工程师个人主页</title>
+    <style>
+        /* 全局变量与基础设置 */
+        :root {
+            --primary-color: #004a87; 
+            --secondary-color: #00a4e4; 
+            --accent-color: #f59e0b; 
+            --bg-light: #f8fafc;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --white: #ffffff;
+            --border-color: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; line-height: 1.7; color: var(--text-main); background-color: var(--bg-light); }
+        a { text-decoration: none; color: var(--primary-color); }
+        ul { list-style: none; }
+
+        /* 导航栏 */
+        nav { background: var(--white); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100; display: flex; justify-content: space-between; padding: 1rem 5%; align-items: center; }
+        nav .logo { font-size: 1.5rem; font-weight: 800; color: var(--primary-color); letter-spacing: 1px; }
+        nav ul { display: flex; gap: 2rem; }
+        nav ul li a { font-weight: 600; color: var(--text-muted); transition: color 0.3s; }
+        nav ul li a:hover { color: var(--primary-color); }
+
+        /* 头部 Hero 区域 */
+        header { background: linear-gradient(135deg, #0f172a, #1e293b); color: var(--white); padding: 6rem 5% 7rem; text-align: center; position: relative; overflow: hidden; }
+        header::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: radial-gradient(circle at 20% 50%, rgba(0,164,228,0.15) 0%, transparent 50%); }
+        
+        /* 个人头像样式 */
+        .profile-img {
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid var(--white);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+            margin: 0 auto 1.5rem auto;
+            display: block;
+            position: relative;
+            z-index: 2;
+            transition: transform 0.3s ease;
+        }
+        .profile-img:hover {
+            transform: scale(1.05);
+        }
+
+        header h1 { font-size: 3.5rem; margin-bottom: 0.5rem; letter-spacing: 2px; position: relative; z-index: 2;}
+        header h2 { font-size: 1.5rem; font-weight: 400; margin-bottom: 1.5rem; color: #94a3b8; position: relative; z-index: 2;}
+        .tags { display: flex; justify-content: center; gap: 1rem; margin-bottom: 2rem; position: relative; z-index: 2;}
+        .tags span { background: rgba(255,255,255,0.1); padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.9rem; color: #e2e8f0; border: 1px solid rgba(255,255,255,0.2); }
+        .contact-info { margin-bottom: 2.5rem; font-size: 1.1rem; color: #cbd5e1; position: relative; z-index: 2;}
+        .btn { display: inline-block; background: var(--secondary-color); color: var(--white); padding: 0.8rem 2.5rem; border-radius: 4px; font-weight: bold; transition: all 0.3s; position: relative; z-index: 2; box-shadow: 0 4px 15px rgba(0,164,228,0.4); }
+        .btn:hover { background: #008bbf; transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,164,228,0.6); }
+
+        /* 通用区块设置 */
+        section { padding: 5rem 5%; }
+        .section-title { text-align: center; font-size: 2.5rem; margin-bottom: 4rem; color: var(--text-main); font-weight: 800; }
+        .section-title::after { content: ''; width: 80px; height: 4px; background: var(--secondary-color); display: block; margin: 15px auto 0; border-radius: 2px; }
+
+        /* 教育与荣誉板块 */
+        .edu-awards-container { max-width: 1000px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+        .edu-card, .awards-card { background: var(--white); padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid var(--border-color); }
+        .edu-card h3, .awards-card h3 { color: var(--primary-color); font-size: 1.5rem; margin-bottom: 1.5rem; display: flex; align-items: center; }
+        .edu-card h3::before, .awards-card h3::before { content: ''; display: inline-block; width: 4px; height: 1.2rem; background: var(--secondary-color); margin-right: 0.8rem; border-radius: 2px; }
+        .edu-details { margin-bottom: 1.5rem; }
+        .edu-details h4 { font-size: 1.2rem; color: var(--text-main); }
+        .edu-details p { color: var(--text-muted); font-size: 0.95rem; margin-top: 0.3rem; }
+        .highlight-text { color: var(--accent-color); font-weight: bold; }
+        .award-list li { margin-bottom: 1rem; padding-left: 1.5rem; position: relative; color: var(--text-muted); line-height: 1.5; }
+        .award-list li::before { content: '🏆'; position: absolute; left: -0.2rem; top: -2px; font-size: 1rem; }
+
+        /* 深度技能卡片区域 */
+        .skills-container { max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(450px, 1fr)); gap: 2.5rem; }
+        .skill-card { background: var(--white); padding: 2.5rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); border: 1px solid var(--border-color); transition: transform 0.3s; }
+        .skill-card:hover { transform: translateY(-5px); border-color: var(--secondary-color); }
+        .skill-header { display: flex; align-items: center; margin-bottom: 1.5rem; }
+        .skill-icon { font-size: 2.5rem; margin-right: 1rem; }
+        .skill-card h3 { color: var(--primary-color); font-size: 1.5rem; }
+        .skill-card ul { padding-left: 1.2rem; }
+        .skill-card ul li { margin-bottom: 1rem; position: relative; color: var(--text-muted); font-size: 1.05rem; }
+        .skill-card ul li::before { content: '▹'; position: absolute; left: -1.2rem; color: var(--secondary-color); font-weight: bold; font-size: 1.2rem; }
+        .highlight { font-weight: 600; color: var(--text-main); }
+
+        /* 深度项目复盘区域 */
+        .project-case { max-width: 1000px; margin: 0 auto 4rem; background: var(--white); padding: 3rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .project-title { font-size: 1.8rem; color: var(--primary-color); margin-bottom: 0.5rem; }
+        .project-role { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 1.5rem; font-weight: 500; }
+        
+        .tech-tags { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--border-color); }
+        .tag { background: #f1f5f9; color: #475569; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.9rem; font-weight: 600; border: 1px solid #e2e8f0; }
+        
+        .project-body h4 { font-size: 1.3rem; color: var(--text-main); margin: 2rem 0 1rem; display: flex; align-items: center; }
+        .project-body h4::before { content: ''; display: inline-block; width: 4px; height: 1.2rem; background: var(--secondary-color); margin-right: 0.8rem; border-radius: 2px; }
+        .project-body p { margin-bottom: 1rem; color: var(--text-muted); font-size: 1.05rem; }
+        .project-body ul { margin-left: 1.5rem; margin-bottom: 1.5rem; }
+        .project-body li { margin-bottom: 0.8rem; color: var(--text-muted); list-style-type: disc; }
+        
+        .result-box { background: #f0f9ff; border-left: 4px solid var(--secondary-color); padding: 1.5rem; border-radius: 0 8px 8px 0; margin-top: 2rem; }
+        .result-box p { color: var(--primary-color); font-weight: 600; margin: 0; font-size: 1.1rem; }
+
+        /* 页脚 */
+        footer { background: #0f172a; color: #64748b; text-align: center; padding: 3rem 2rem; font-size: 0.95rem; }
+
+        @media (max-width: 900px) {
+            .edu-awards-container { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            header h1 { font-size: 2.5rem; }
+            .skills-container { grid-template-columns: 1fr; }
+            .project-case { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">仇科文 · Portfolio</div>
+        <ul>
+            <li><a href="#about">关于我</a></li>
+            <li><a href="#education">教育与荣誉</a></li>
+            <li><a href="#skills">核心技术域</a></li>
+            <li><a href="#projects">项目深度复盘</a></li>
+        </ul>
+    </nav>
+
+    <header id="about">
+        <img src="profile.jpg" alt="仇科文" class="profile-img">
+        
+        <h1>仇科文</h1>
+        <h2>全栈自动化与电气工程师 | 优秀应届毕业生</h2>
+        <div class="tags">
+            <span>🎓 石家庄职业技术学院</span>
+            <span>🏆 多项国家级/省级技能大赛得主</span>
+            <span>⚡ PLC控制与产线联调</span>
+        </div>
+        <div class="contact-info">
+            📞 134-6338-1130 &nbsp; | &nbsp; ✉️ wuming94354@gmail.com &nbsp; | &nbsp; 📍 河北省秦皇岛市
+        </div>
+        <p style="max-width: 800px; margin: 0 auto 3rem; color: #e2e8f0; font-size: 1.1rem; line-height: 1.8; position: relative; z-index: 2;">
+            技术功底扎实，精通热门系列PLC编程与调试。在校期间多次参加国家级/省级技能大赛并斩获大奖，理论与实战能力兼备。具备突出的领导力与强劲的学习能力，<strong style="color:var(--white);">能适应高强度工作节拍，接受加班与全国出差</strong>。致力于通过底层数据采集与反馈控制，打造高稳定性的数字化智能产线。
+        </p>
+        <a href="#projects" class="btn">深入了解我的项目实战</a>
+    </header>
+
+    <section id="education" style="background-color: var(--white);">
+        <h2 class="section-title">教育背景与核心荣誉</h2>
+        <div class="edu-awards-container">
+            <div class="edu-card">
+                <h3>教育经历</h3>
+                <div class="edu-details">
+                    <h4>石家庄职业技术学院</h4>
+                    <p>电气自动化技术 · 专科 | 2024.09 - 2027.06</p>
+                    <p style="margin-top: 0.8rem;"><strong>主修课程：</strong>PLC控制技术与应用、电路基础、模拟电子技术基础、数字电子技术基础、电力电子技术</p>
+                    <p style="margin-top: 0.5rem;"><span class="highlight-text">★ 学业表现：专业排名前 5%</span></p>
+                </div>
+                <div class="edu-details" style="margin-top: 2rem; border-top: 1px solid var(--border-color); padding-top: 1.5rem;">
+                    <h4>专业资质</h4>
+                    <p style="margin-top: 0.5rem; font-weight: 500; color: var(--primary-color);">✔️ 可编程逻辑控制器职业技能中级证书</p>
+                </div>
+            </div>
+            
+            <div class="awards-card">
+                <h3>竞赛战绩 (实战能力验证)</h3>
+                <ul class="award-list">
+                    <li><strong style="color:var(--text-main);">河北省第一名</strong> | 2026届河北省职业技能大赛“工业网络智能控制与维护”赛项<span class="highlight-text"> 二等奖</span></li>
+                    <li><strong style="color:var(--text-main);">国家级三等奖</strong> | 2025年黄炎培职业教育AI+信息技术应用创新技能大赛</li>
+                    <li><strong style="color:var(--text-main);">世界级三等奖</strong> | 2025届世界职业院校技能大赛“智能装备应用”赛项选拔赛</li>
+                    <li><strong style="color:var(--text-main);">世界级铜奖(替补)</strong> | 2025届世界职业院校技能大赛“智能装备应用”赛项争夺赛</li>
+                </ul>
+                <p style="margin-top: 1.5rem; font-size: 0.9rem; color: var(--text-muted); background: var(--bg-light); padding: 1rem; border-radius: 6px;">
+                    💡 <strong>战绩说明：</strong> 高频次的参赛经历锤炼了我极强的现场抗压能力、突发故障排查能力以及团队协同领导力，确保我能够迅速融入企业的实际产线联调工作。
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title">核心技术域与工程能力</h2>
+        <div class="skills-container">
+            
+            <div class="skill-card">
+                <div class="skill-header">
+                    <span class="skill-icon">⚡</span>
+                    <h3>电气设计与 PLC 控制系统</h3>
+                </div>
+                <ul>
+                    <li><span class="highlight">硬件图纸落地：</span>熟练使用 <strong>EPLAN</strong> 绘制原理图与柜体布局，具备规范的电气选型与制图能力。</li>
+                    <li><span class="highlight">复杂逻辑编程：</span>精通 <strong>西门子 (S7-1200/1500)</strong> 及 <strong>信捷 (XD系列)</strong> PLC 架构；基于 <strong>博途 (TIA)</strong> 平台独立完成复杂逻辑与自动化系统开发。</li>
+                    <li><span class="highlight">HMI 交互设计：</span>熟练组态 <strong>西门子 HMI</strong> 与 <strong>昆仑通态 (MCGS)</strong>，独立开发人机交互界面与综合报警系统。</li>
+                </ul>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-header">
+                    <span class="skill-icon">⚙️</span>
+                    <h3>传动控制与多轴运动</h3>
+                </div>
+                <ul>
+                    <li><span class="highlight">变频传动应用：</span>熟练配置与调试 <strong>西门子 V20 / G120 变频器</strong>，实现稳定的调速控制。</li>
+                    <li><span class="highlight">伺服与步进控制：</span>深入理解运动控制原理，熟练进行伺服及步进系统的参数整定与控制程序编写。</li>
+                </ul>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-header">
+                    <span class="skill-icon">👁️</span>
+                    <h3>机器视觉与机器人协同</h3>
+                </div>
+                <ul>
+                    <li><span class="highlight">视觉算法应用：</span>掌握 <strong>海康威视 (HIKVISION)</strong> 机器视觉编程，熟练运用 <strong>BLOB 分析</strong>进行特征提取。</li>
+                    <li><span class="highlight">跨平台信号联动：</span>具备视觉系统与主控 <strong>PLC、ABB 工业机器人</strong> 联合调试与信号交互的实战经验，实现高效协同作业。</li>
+                </ul>
+            </div>
+
+            <div class="skill-card">
+                <div class="skill-header">
+                    <span class="skill-icon">🌐</span>
+                    <h3>工业网络与信息化</h3>
+                </div>
+                <ul>
+                    <li><span class="highlight">协议栈与网关组网：</span>精通 <strong>PROFINET</strong> 与 <strong>Modbus TCP/RTU</strong> 协议；能独立配置工业网关搭建树状/环状网络。</li>
+                    <li><span class="highlight">MES 系统数据对接：</span>具备产线信息化思维，可配合上层 <strong>MES 系统</strong> 完成生产调度、物料追踪与底层数据的闭环管理。</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="projects" style="background-color: var(--white);">
+        <h2 class="section-title">核心项目与赛项复盘</h2>
+        
+        <div class="project-case">
+            <h3 class="project-title">工业网络智能控制与维护赛项 (实战开发)</h3>
+            <div class="project-role">⏱ 2025.03 - 2026.01 &nbsp;|&nbsp; 👨‍💻 电气工程师 (核心主导)</div>
+            
+            <div class="tech-tags">
+                <span class="tag">TIA Portal (博途)</span>
+                <span class="tag">西门子 S7-1500</span>
+                <span class="tag">SCL 算法编程</span>
+                <span class="tag">PROFINET/Modbus</span>
+                <span class="tag">MES 对接</span>
+                <span class="tag">节拍优化</span>
+            </div>
+
+            <div class="project-body">
+                <p><strong>项目背景：</strong>该赛项高度模拟现代智能制造真实产线，要求在限定时间内完成从底层硬件架构、多轴运动控制到顶层 MES 信息化对接的全链路开发与极限调试。</p>
+
+                <h4>1. 硬件组态与通讯采集</h4>
+                <ul>
+                    <li>基于 TIA Portal 完成全套系统架构搭建。</li>
+                    <li>运用 <strong>Profinet</strong> 与 <strong>Modbus</strong> 协议，成功实现多维传感器（颜色、重量、环境等）的数据采集与极低延迟的稳定通讯。</li>
+                </ul>
+
+                <h4>2. 运动控制与核心工艺逻辑</h4>
+                <ul>
+                    <li>摒弃冗余代码，**采用模块化思想封装 FB 块**，实现对伺服/步进电机的精准控制与程序复用。</li>
+                    <li>结合 LAD/SCL 编写单站复杂核心逻辑；**运用 SCL 语言及冒泡排序算法**，独立开发了高响应的 HMI 订单管理与报警追踪模块。</li>
+                </ul>
+
+                <h4>3. 节拍突破与 MES 信息化对接</h4>
+                <ul>
+                    <li>主导西门子 S7-1500 全站网络通讯，依托 S7 协议打通跨线设备联调。</li>
+                    <li>成功建立底层设备与 <strong>MES 系统</strong> 的双向数据交互桥梁，保障了生产调度与物料追踪链路的完整性。</li>
+                </ul>
+
+                <div class="result-box">
+                    <p>🎯 核心战绩 (节拍优化)：重构产线控制时序，将传统的“延时等待”硬核升级为基于继电器反馈（DONE信号）的闭环事件驱动控制，彻底消除设备空窗期，成功提升产线总体节拍（CT）高达 15%！</p>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <footer>
+        <p>&copy; 2024 - 2026 仇科文. All Rights Reserved. <br>技术立身，拥抱智造。期待在实战中创造更多价值！</p>
+    </footer>
+
+</body>
+</html>
